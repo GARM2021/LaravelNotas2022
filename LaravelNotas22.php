@@ -162,7 +162,7 @@ Route::get('respuesta6', function(){
 
 //? Helper global session
 
-//? Este helper te permite acceder al API para el acceso a la sesión desde cualquier parte de tu código, incluso desde las vistas si fuera necesario. Es la manera más cómoda para acceder a los datos de la sesión, modificarlos, etc.
+//* Este helper te permite acceder al API para el acceso a la sesión desde cualquier parte de tu código, incluso desde las vistas si fuera necesario. Es la manera más cómoda para acceder a los datos de la sesión, modificarlos, etc.
 
 $identificador_carrito = session('idCarrito');
 
