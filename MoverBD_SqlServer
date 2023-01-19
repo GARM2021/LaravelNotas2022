@@ -1,0 +1,36 @@
+
+20221229
+
+como poder mover archivos de base de datos sql mdf y  ldf a otra ubicacion y permanezcan adjuntos
+Para mover archivos de base de datos .mdf y .ldf a otra ubicación y mantenerlos adjuntos, puedes seguir los siguientes pasos:
+
+Detach la base de datos: antes de mover los archivos, debes desvincular la base de datos de SQL Server. Para ello, puedes utilizar el siguiente comando T-SQL:
+Copy code
+EXEC sp_detach_db 'nombre_de_la_base_de_datos', 'true';
+Mover los archivos: una vez que la base de datos está desvinculada, puedes mover los archivos .mdf y .ldf a la nueva ubicación. Asegúrate de mantener la misma estructura de carpetas y nombres de archivo.
+
+Attach la base de datos: finalmente, debes volver a vincular la base de datos a SQL Server en la nueva ubicación. Para ello, puedes utilizar el siguiente comando T-SQL:
+
+Copy code
+EXEC sp_attach_db
+  @dbname = N'nombre_de_la_base_de_datos',
+  @filename1 = N'ruta_al_archivo_mdf',
+  @filename2 = N'ruta_al_archivo_ldf';
+Espero que esto te haya ayudado a entender cómo mover archivos de base de datos .mdf y .ldf a otra ubicación y mantenerlos adjuntos
+
+en relaciona a mi pregunta anterior defineme como mantengo la misma estructura de carpetas y nombres de archivo 
+
+Para mantener la misma estructura de carpetas y nombres de archivo al mover los archivos de base de datos .mdf y .ldf a otra ubicación, debes seguir los siguientes pasos:
+
+Localiza los archivos de la base de datos: antes de mover los archivos, debes conocer la ubicación actual de los archivos .mdf y .ldf. Para ello, puedes usar el siguiente comando T-SQL:
+Copy code
+USE master;
+GO
+
+EXEC sp_helpdb 'nombre_de_la_base_de_datos';
+GO
+Este comando te mostrará la ubicación actual de los archivos de la base de datos.
+
+Copia los archivos a la nueva ubicación: una vez que conoces la ubicación actual de los archivos, puedes copiarlos a la nueva ubicación. Asegúrate de mantener la misma estructura de carpetas y nombres de archivo. Por ejemplo, si los archivos se encuentran en la carpeta C:\BD\ con los nombres BD.mdf y BD.ldf, debes copiarlos a la nueva ubicación manteniendo esta estructura.
+
+pudiera ser en el ejemplo a D:\BD\BD.mdf  y   D:\BD\BD.ldf      asi lo entiendo
