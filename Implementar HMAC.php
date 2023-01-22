@@ -13,7 +13,19 @@ http://www.php.net/manual/en/function.hash-hmac.php
 https://gist.github.com/MaximeFrancoeur/bcb7fc2db08c704f322a
 https://www.freeformatter.com/hmac-generator.html#ad-output (permite validar el HMAC)
  
-Es importante considerar que la firma digital HMAC que se envíe, debe venir en minúsculas para que la aplicación de Multipagos la considere como un valor correcto. Adicionalmente, la cadena que se debe encriptar consta de los parámetros s_transm + c_referencia + t_importe y en el retorno se añade el parámetro n_autoriz (la llave privada no debe formar parte de la cadena a encriptar ni debe ser enviada como parámetro).
+Es importante considerar que la firma digital HMAC que se envíe, 
+debe venir en minúsculas
+para que la aplicación de Multipagos la considere como un valor correcto. Adicionalmente, la cadena que se debe encriptar 
+
+consta de los parámetros
+s_transm  $cuenta->comorder_id
++
+ c_referencia $info->exp
++
+ t_importe  $rowAdeudo['totalAdeudo']
+
+y en el retorno se añade el parámetro n_autoriz 
+(la llave privada no debe formar parte de la cadena a encriptar ni debe ser enviada como parámetro).
  
 De igual forma, es muy importante que la llave privada quede resguardada en lugar seguro protegida del alcance de terceros, ya que es un dato sensible que si alguna persona malintencionada tiene acceso a ella, la utilidad del HMAC se vería afectada, pues los parámetros podrían ser modificados y alterar los datos de la transacción.
 
@@ -41,7 +53,7 @@ $hashed_password = hash('sha256', $password);
 También puede utilizar el método bcrypt() en el modelo de usuario para almacenar contraseñas encriptadas con el algoritmo bcrypt, que incluye el algoritmo SHA-256.
 
 Copy code
-use Illuminate\Support\Facades\Hash;
+    use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -110,7 +122,7 @@ $secretKey = "secret_key";
 // Información de la petición
 $requestData = [
     "nombre" => "John",
-    "apellido" => "Doe",
+    "apellido" => "Doe",    
     "email" => "johndoe@example.com",
     "telefono" => "555-555-5555"
 ];
@@ -138,5 +150,108 @@ Luego, se crea un arreglo con la información de la petición y se convierte en 
 Es importante mencionar que esta clave secreta debe ser compartida entre el cliente y el servidor, y debe ser guardada de manera segura. Ademas la petición debe llegar con un header 'HMAC' con el codigo previamente generado.
 
 En el lado del servidor, se recibiría la petición y se verificaría el HMAC para asegurarse de que la petición no ha sido alterada en tránsito.
+
+
+hmac mp_signature 
+MPA Municipio de Guadalupe - Migración -HASH/ HMAC
+
+
+Ejemplo de calculo de código HMAC utilizando la misma clave secreta y la información de la peticion anterior con //! PHP 5.3.1
+En PHP 5.3.1, el cálculo de un código HMAC se puede realizar utilizando la función hash_hmac(). Esta función toma dos argumentos: el primer argumento es el algoritmo de hash que se va a utilizar (por ejemplo, "sha256"), y el segundo argumento es la información de la petición. El tercer argumento es la clave secreta.
+
+Aquí te doy un ejemplo de cómo calcular un código HMAC en PHP 5.3.1 utilizando la función hash_hmac():
+
+Copy code
+// Clave secreta
+$secretKey = "secret_key";
+
+// Información de la petición
+$requestData = [
+    "nombre" => "John",
+    "apellido" => "Doe",
+    "email" => "johndoe@example.com",
+    "telefono" => "555-555-5555"
+];
+
+// Convertir la información de la petición en una cadena
+$requestDataString = json_encode($requestData);
+
+// Calcular el código HMAC
+$hmac = hash_hmac("sha256", $requestDataString, $secretKey);
+
+// Agregar el código HMAC al encabezado de autorización
+$headers = [
+    "Authorization" => "HMAC " . $hmac
+];
+En este ejemplo, primero se establece una clave secreta. Luego, se crea un arreglo con la información de la petición y se convierte en una cadena de texto con json_encode. Finalmente, se utiliza la función hash_hmac() para calcular el código HMAC utilizando el algoritmo sha256, la clave secreta y la información de la petición, y se agrega al encabezado de autorización antes de enviar la petición.
+
+Es importante mencionar que en versiones de PHP anteriores a 5.1.2 se debe descargar y configurar una librería adicional como "hash" o "mhash" para poder utilizar esta función.
+
+Ademas de esto, es importante mencionar que esta clave secreta debe ser compartida entre el cliente y el servidor, y debe ser guardada de manera segura. Ademas la petición debe llegar con un header 'HMAC' con el codigo previamente generado.
+
+En el lado del servidor, se recibiría la petición y se verificaría el HMAC para asegurarse de que la petición no ha sido alterada en tránsito.
+
+
+son_encode() se puede ejecutar en PHP 5.3.1
+Sí, la función json_encode() es compatible con PHP 5.2.0 o superior, por lo que se puede utilizar en PHP 5.3.1.
+
+La función json_encode() se utiliza para convertir una variable de PHP en una cadena de texto en formato JSON. Esta función toma un argumento que es la variable que se va a convertir. Por ejemplo, para convertir un arreglo en una cadena de texto JSON, se utilizaría de la siguiente manera:
+
+Copy code
+$array = array("nombre" => "John", "apellido" => "Doe");
+$json = json_encode($array);
+En este caso, la variable $json tendría el valor {"nombre":"John","apellido":"Doe"}
+
+Es importante mencionar que en PHP 5.3.1 no existen algunas funciones como json_decode para convertir una cadena de texto JSON en una variable de PHP, pero se pueden usar librerias como "json" para poder utilizar esta funcion.
+
+En resumen, la función json_encode() es compatible con PHP 5.3.1 y puede ser utilizada para convertir variables de PHP en cadenas de texto JSON, lo que es útil para transmitir datos entre diferentes sistemas o plataformas.
+
+
+
+las funciones => se pueden ejecutar en PHP 5.3.1
+Las funciones "flecha" (arrow functions) no están disponibles en PHP 5.3.1. Las funciones flecha son una característica de PHP 7 y versiones posteriores.
+
+En PHP 5.3.1, las funciones se definen utilizando la palabra clave function seguida del nombre de la función y un par de paréntesis. Por ejemplo:
+
+Copy code
+function sum($a, $b) {
+    return $a + $b;
+}
+Sin embargo, existen alternativas como la Closure, una función anónima que permite una sintaxis similar a las funciones flecha y permite crear funciones sin necesidad de definir un nombre para ellas.
+
+Copy code
+$sum = function($a, $b) {
+    return $a + $b;
+};
+En resumen, las funciones flecha no están disponibles en PHP 5.3.1 pero se puede utilizar Closure, una función anónima que permite crear funciones sin necesidad de definir un nombre para ellas.
+
+El siguiente codigo como se puede codificar en PHP 5.3.1      $requestData = [
+    "s_transm" => $hs_transm,
+    "c_referencia" => $hc_referencia,    
+    "t_importe" => $h_totalAdeudo
+    ];
+
+$requestDataString = json_encode($requestData);
+En PHP 5.3.1, no se puede utilizar la sintaxis de arreglos de corchetes [] para crear un arreglo. En su lugar, se puede utilizar la función array() para crear un arreglo. Por lo tanto, para crear un arreglo con los datos de la petición, el código se vería así:
+
+Copy code
+$requestData = array(
+    "s_transm" => $hs_transm,
+    "c_referencia" => $hc_referencia,    
+    "t_importe" => $h_totalAdeudo
+);
+En cuanto a la conversión de la información de la petición en una cadena, en PHP 5.3.1 no esta incluida la función json_encode(), pero se pueden usar librerias de terceros como "json" para poder utilizar esta función.
+
+Copy code
+$requestDataString = json_encode($requestData);
+Es importante mencionar que esta librería debe ser previamente descargada e instalada.
+
+En resumen, para crear un arreglo en PHP 5.3.1 se debe utilizar la función array() en lugar de la sintaxis de corchetes, y para convertir un arreglo en una cadena de texto JSON se debe utilizar una librería de terceros como "json"
+
+
+
+Regenerate response
+
+
 
 ?>
