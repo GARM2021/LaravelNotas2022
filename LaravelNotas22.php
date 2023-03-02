@@ -266,7 +266,7 @@ class DeleteSessionData
 // ! Nota: Recuerda que para probar este ejercicio lo más cómodo será usar una extensión como Postman, que permite indicar la URL y definir el verbo del HTTP e incluso mandarle datos por formulario. Esto lo explicamos en el artículo Verbos en las rutas de Laravel. También se mencionó en ese artículo que para que los envíos por post nos funcionen habrá que desactivar el middleware de protección CSRF "VerifyCsrfToken".
 
 
-//? Recibiendo datos en Laravel
+//? Recibiendo datos en Laravel  <- 20230216 aqui voy
 
 //* EJEMPLO
 

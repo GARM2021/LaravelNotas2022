@@ -34,3 +34,8 @@ Este comando te mostrará la ubicación actual de los archivos de la base de dat
 Copia los archivos a la nueva ubicación: una vez que conoces la ubicación actual de los archivos, puedes copiarlos a la nueva ubicación. Asegúrate de mantener la misma estructura de carpetas y nombres de archivo. Por ejemplo, si los archivos se encuentran en la carpeta C:\BD\ con los nombres BD.mdf y BD.ldf, debes copiarlos a la nueva ubicación manteniendo esta estructura.
 
 pudiera ser en el ejemplo a D:\BD\BD.mdf  y   D:\BD\BD.ldf      asi lo entiendo
+
+
+
+
+
