@@ -51,7 +51,7 @@ public function editar(Request $request, $id){
 
 // *En el patrón además los modelos mantienen lo que se llama la lógica de negocio, que son las reglas que deben cumplirse para trabajar con los datos.
 
-//? Laravel middleware
+#region //? Laravel middleware
 
 
 // * "HTTP middleware provee un mecanismo adecuado para filtrar solicitudes HTTP entrantes a la aplicación [...] hay diversos middleware incluidos en el framework Laravel, como middleware para mantenimiento, autenticación, protección CSRF mediante token, etc."
@@ -134,6 +134,8 @@ class PrimerController extends Controller
 
 // * En este caso no necesitamos mencionar el middleware desde el sistema de rutas, solo lo mencionamos desde el constructor del controlador, para ejecutarse en cualquiera de las acciones declaradas en él.
 
+#endregion 
+
 // ? Responses en Laravel
 
 //? Enviar una vista mediante una instancia Response-----------------------------------
@@ -149,7 +151,7 @@ Route::get('respuesta6', function(){
 
 //! Response se puede utilizar para responder en formato JSON, generar cookies, enviar archivos para descarga, etc.
 
-//? Session Laravel
+#region //? Session Laravel
 
 //*Como decíamos, la principal novedad del sistema de sesiones de Laravel con respecto a PHP nativo es la facilidad con la que podemos alterar el funcionamiento interno de las sesiones, para definir un soporte de almacenamiento diverso. Las opciones principales son las siguientes:
 
@@ -258,8 +260,8 @@ class DeleteSessionData
         session()->forget('variable_de_sesion_que_quieres_asegurarte_de_borrar');
     }
 }
-
-//? Recibiendo datos en Laravel
+#endregion 
+#region //? Recibiendo datos en Laravel
 
 // ! Como ya sabemos, cuando se envían datos por get, viajan en variables dentro de la URL y cuando se envían por post, viajan en las cabeceras del HTTP, de manera invisible para el usuario.
 
@@ -351,9 +353,8 @@ $archivo = $request->file('archivo');
 if($request->hasFile('archivo')){
     $archivo = $request->file('archivo');
 }
-
-
-//? Volcado de la entrada de datos de usuario a la sesión  https://desarrolloweb.com/articulos/volcado-entrada-datos-usuario-sistema.html
+#endregion 
+#region //? Volcado de la entrada de datos de usuario a la sesión  https://desarrolloweb.com/articulos/volcado-entrada-datos-usuario-sistema.html
 
 //? Old Input
 
@@ -410,12 +411,14 @@ old("nombre", "Anonimo");
 
 //* Dada la invocación anterior, si no hay datos flasheados en la sesión, o no existe el campo "nombre" entre los elementos existentes, old() devolverá el valor "Anónimo".
 
-
-//? Validaciones con Laravel
+#endregion 
+#region  //?ValidacionesconLaravel
 
 //? Trait ValidatesRequests en el controlador base
 
-//* Laravel 5 incluye un trait que se carga en el controlador base (clase Controller), llamado "ValidatesRequests". Ese trait contiene código que estará disponible en todos los controladores que nosotros creemos, puesto que todos extienden la clase Controller.
+//* Laravel 5 incluye un trait que se carga en el controlador base (clase Controller), llamado
+ "ValidatesRequests".
+  Ese trait contiene código que estará disponible en todos los controladores que nosotros creemos, puesto que todos extienden la clase Controller.
 
 //* Nota: Puedes encontrar el código del controlador base (clase Controller) en la ruta "app/Http/Controllers/Controller.php" y encontrarás la declaración de uso del trait en la línea:
 
@@ -449,7 +452,8 @@ public function store(Request $request)
     echo 'Ahora sé que los datos están validados. Puedo insertar en la base de datos';
 }
 
-// * Los errores de validación los vamos a extraer de una variable llamada $errors, que está disponible en toda vista.
+// * Los errores de validación los vamos a extraer de una variable llamada 
+//!$errors
 
 // * Laravel automáticamente crea la variable $errors flasheando en la sesión todos los errores de validación que se hayan podido producir. Si no hubo tal error de validación Laravel crea igualmente esa variable, pero vacía, por lo que podemos usarla siempre que queramos, sin preocuparnos si está o no está definida, porque siempre lo va a estar.
 
@@ -531,7 +535,7 @@ public function store(Request $request)
 //* El nombre del archivo será create.blade.php. Ese nombre lo marcamos al invocar la vista, desde el controlador ProductoController, en la acción create().
 
 
-// ?Validación reutilizable por Requests en Laravel 5
+// ?Validación reutilizable por Requests en Laravel 5 20230323
 
 //* La validación por Requests de Laravel 5 es un estilo de validación más avanzado que puede ser reutilizable y nos libera a los controladores de las operaciones de comprobación de la entrada de usuario.
 
@@ -649,9 +653,12 @@ public function store(ProductoRequest $request)
 //* Pero la razón de más peso es que hay acciones que pueden requerir validaciones más especializadas. Por ejemplo al crear una factura podemos validar una serie de informaciones básicas. Pero quizás al editarla hay otra serie de reglas que se deben comprobar. En ese caso, esas validaciones específicas tenemos que colocarlas en la acción del controlador que las necesita.
 
 //* De momento es todo, esperamos que aprecieis la potencia y simplicidad de este nuevo método de validar y lo podáis practicar.
+ 
 
 
-//? Cómo funcionan las Cookies
+#endregion
+
+#region //? Cómo funcionan las Cookies
 
 // *Antes de explicar los mecanismos que nos ofrece Laravel creo que unas pequeñas notas sobre cómo funcionan las cookies aclararán muchas dudas. Como no es el objetivo de este artículo hablar de cookies en general, lo voy a esquematizar en cuatro puntos:
 
@@ -780,8 +787,9 @@ Objetivo: Sistema de personalización de aspecto
 El objetivo es hacer un sistema de personalización del tamaño de la fuente en un supuesto sitio web.
 
 Básicamente tenemos un formulario donde el usuario puede seleccionar el tamaño de fuente que prefiere para visualizar el sitio. Una vez seleccionado el tamaño de la fuente se envía el formulario y se guardará el dato en una cookie, de modo que en siguientes accesos el sitio web sea capaz de memorizar la preferencia del usuario.
+#endregion 
 
-//? Rutas de la aplicación
+#region //? Rutas de la aplicación
 
 Tendremos dos rutas simplemente, una que muestra el formulario de personalización y otra que recibe el dato y si es correcto se encarga de almacenar la cookie.
 
@@ -864,8 +872,10 @@ Observa que en la declaración de estilos, etiqueta STYLE en el HEAD, usamos la 
 
 Con eso es todo, si has seguido con atención el manual de Laravel, estamos convencidos que podrás reproducir este ejemplo y mejorarlo por tu cuenta con adicionales opciones de personalización de estilos en la página.
 
+#endregion 
 
-//? Cómo se gestiona el trabajo con bases de datos en Laravel
+
+#region //? Cómo se gestiona el trabajo con bases de datos en Laravel
 
 En Laravel existen diversas vías para trabajar con bases de datos, a distintos niveles. Principalmente podremos trabajar con:
 
@@ -891,7 +901,7 @@ SQL Server
 
 La elección del sistema de base de datos corre por nuestra cuenta y aunque sean motores diferentes, a la hora de la práctica el tratamiento que haremos, a nivel de código, para trabajar con cualquiera de ellos será el mismo, si trabajamos en las capas de más alto nivel como el query builder o el ORM.
 
-//? Configuración de la base de datos
+ //? Configuración de la base de datos
 
 El primer paso que tendremos que hacer para trabajar con una base de datos es configurarla en nuestro sistema. Esto se realiza desde un par de lugares.
 
@@ -958,8 +968,8 @@ Nuestro ejercicio nos permitirá poner en práctica los conocimientos que ya pos
 
 //! Nota: Todo lo que vamos a conocer de nuevo en este artículo son cosas que nos ofrece el ORM de Laravel, Eloquent. 
 
-
-//? Rutas
+#endregion 
+#region //? Rutas
 
 Comenzaremos observando las rutas nuevas que hemos creado para este ejemplo.
 
@@ -1093,7 +1103,9 @@ class Book extends Model
     protected $fillable = ['name', 'author', 'isbn'];
 }
 
-//? Vistas de la aplicación
+#endregion 
+
+#region //? Vistas de la aplicación
 
 Ya solo nos queda ver las vistas que hemos creado para esta práctica. Todas las hemos situado en la carpeta resources/views/libro.
 
@@ -1176,9 +1188,49 @@ Esta vista tiene varios detalles importantes, primero el recorrido a los errores
 
 Con esto termina esta práctica, ya solo faltaría poner en marcha el ejercicio accediendo a las rutas de la aplicación definidas.
 
+#endregion 
+
+//? =======================================================================================================================================================
+1) Código vulnerable:
+
+route::get('rawsql/libros/buscarid', function(){
+	$id = \Request::input('id');
+	$libros = DB::select('select * from books where id=' . $id);
+	dd($libros);
+});
 
 
-//!* Emigrar aplicacion de Laravel en instancia AWS ubuntu ingnx 
+El código anterior es vulnerable, porque estamos concatenando directamente en el SQL un valor, sin hacer el bindeo del parámetro. Especialmente, si el valor viene de una entrada de datos por parte del usuario, como es el caso, podría contener caracteres que produzcan SQLs diferentes de las que en principio estamos suponiendo que vamos a enviar.
+
+Nota: No es el objetivo explicar cómo burlar la seguridad de ese código con una inyección de SQL, pero si te interesa puedes buscar documentación en Internet, que hay bastante.
+Este segundo código hace exáctamente lo mismo. Pero en este caso sí se realiza el binding del parámetro usando el procedimiento que te asegura la protección de tu sentencia.
+
+2) Código seguro frente a SQL injection:
+
+route::get('rawsql/libros/buscarid', function(){
+	$id = \Request::input('id');
+	$libros = DB::select('select * from books where id= ?', [$id]);
+	dd($libros);
+});
+Nota: El bindeo de los parámetros no es algo específico de Laravel. Si usas MySQLi por ejemplo también puedes hacer bindeo de parámetros preparando las consultas. O bien con PDO. Quiere decir que las protecciones para el paso de parámetros como datos en las consultas son propias de PHP nativo y que las debes usar aunque no trabajes con ningún framework. Por ese motivo imaginamos que conoces un poco este asunto y no necesitamos explicar mucho más.
+Puedes bindear varios parámetros en una consulta, simplemente agregando más variables al array, que harán corresponderse con los caracteres "?" por orden de aparición.
+
+$titulo = "El Quijote";
+$autor = "Cervantes";
+$insertado = DB::insert('insert into books (name, author) values (?, ?)', [$titulo, $autor]);
+Así mismo, puedes realizar el bindeo de datos a la consulta usando parámetros con nombres, en cuyo caso usarás un array asociativo para indicar los valores.
+
+$libros = DB::select('select * from books where name like :busqueda limit :cuantos', array(
+'busqueda' => "%$cadena%",
+'cuantos' => $num
+));
+Nota: Un error común en el bindeo de parametros es colocar el binding entre comillas. Por ejemplo "select * from books where name = '?' limit 1". Esto está mal escrito, aunque name tenga valores que son alfanuméricos, puesto que el sistema de incorporación de los parámetros debe ser el encargado de saber si algo va entre comillas o no, y componer la sentencia correctamente. Nunca entrecomillamos los bindeos. Tampoco estaría bien "select * from books where name like '%:busqueda%' limit 3", por el mismo motivo.
+
+
+
+//? =======================================================================================================================================================
+
+//?  Emigrar aplicacion de Laravel en instancia AWS ubuntu ingnx 
 Para migrar una aplicación de Laravel a una instancia de AWS con Ubuntu y nginx, puedes seguir los siguientes pasos:
 
 Crea una instancia de AWS: en primer lugar, debes crear una instancia de AWS con Ubuntu como sistema operativo. Puedes usar la consola de AWS o la línea de comandos para crear la instancia.
@@ -1223,7 +1275,7 @@ de transferencia de archivos como scp para subir la aplicación a la carpeta /va
 Configura la base de datos: finalmente, debes configurar la conexión a la base de datos de la aplicación. Para ello, debes editar el archivo .env de 
 la aplicación y establecer los valores de DB_HOST, DB_DATABASE, DB_USERNAME y DB_PASSWORD con los datos de tu base de datos.
 
-
+//? =======================================================================================================================================================
 
 <script src="{{ asset('tmpl/swal/sweetalert2.all.min.js') }}"></script>
 <script type="text/javascript">
